@@ -1,0 +1,70 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'signin/delegate.css' %}">
+
+<head>
+    <!-- <meta http-equiv="refresh" content="5" /> -->
+</head>
+
+<div id="holder">
+    <p>Delegate Sign-in Page:</p>
+    {% if errorMsg %}
+    <p style="color: red"><strong>{{ errorMsg }}</strong></p>
+    {% endif %}
+    <form action="/signin/delegate" method="post">
+        {% csrf_token %}
+        <label>Conference ID: </label>
+        <input name="confID" type="text" value="{{selectedConference.conf_id}}" maxlength="20" />
+        <input type="submit" value="Check Conference ID" />
+        {% if selectedConference %}
+        <br />
+        <label>Committee: </label>
+        <select name="committee" onchange="this.form.submit()">
+            {% if not selectedCommittee %}
+            <option value="none" selected disabled hidden>Select a Committee</option>
+            {% else %}
+            <optgroup label="Selected:">
+                <option value="{{ selectedCommittee.id }}" selected>{{ selectedCommittee.abbr }}</option>
+            </optgroup>
+            {% endif %}
+            <optgroup label="All:">
+                {% for c in committees %}
+                <option value="{{c.id}}">{{c.abbr}}</option>
+                {% endfor %}
+            </optgroup>
+        </select>
+        {% endif %}
+
+        {% if selectedCommittee and selectedConference %}
+        <br />
+        <label>Country: </label>
+        <select name="country" onchange="this.form.submit()">
+            {% if not selectedCountry %}
+            <option value="none" selected disabled hidden>Select a Country</option>
+            {% else %}
+            <optgroup label="Selected:">
+                <option value="{{ selectedCountry.id }}" selected>{{ selectedCountry.abbr }}</option>
+            </optgroup>
+            {% endif %}
+            <optgroup label="All:">
+                {% for c in countries %}
+                <option value="{{c.id}}">{{c.abbr}}</option>
+                {% endfor %}
+            </optgroup>
+        </select>
+        {% endif %}
+
+        {% if selectedCommittee and selectedConference and selectedCountry%}
+        <br />
+        <label>Password: </label>
+        <input name="password" type="text" minlength="4" maxlength="30" required/>
+        <br />
+        <input type="submit" value="Sign In" />
+        {% endif %}
+
+    </form>
+</div>
+
+<script>
+
+</script>
