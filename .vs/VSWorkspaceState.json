@@ -1,0 +1,17 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\mysite",
+    "\\mysite\\homepage",
+    "\\mysite\\homepage\\templates",
+    "\\mysite\\homepage\\templates\\homepage",
+    "\\mysite\\mysite",
+    "\\mysite\\signin",
+    "\\mysite\\signin\\static",
+    "\\mysite\\signin\\static\\signin",
+    "\\mysite\\signin\\templates",
+    "\\mysite\\signin\\templates\\signin"
+  ],
+  "SelectedNode": "\\mysite\\homepage\\models.py",
+  "PreviewInSolutionExplorer": false
+}

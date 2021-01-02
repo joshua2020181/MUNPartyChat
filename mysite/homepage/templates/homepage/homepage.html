@@ -1,0 +1,18 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'homepage/style.css' %}">
+
+<head>
+    <!-- <meta http-equiv="refresh" content="5" /> -->
+</head>
+
+<div class="iama">
+    <p style="font-size: 50px">I AM A</p>
+</div>
+
+<br />
+<div class="buttonHolder">
+    <button type="button" class="userType" style="float: left" onclick="window.location.href='/signin/delegate'">Delegate</button>
+    <button type="button" class="userType" style="margin: auto" onclick="window.location.href='/signin/chair'">Chair</button>
+    <button type="button" class="userType" style="float: right" onclick="window.location.href='/signin/admin'">Admin</button>
+</div>
