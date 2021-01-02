@@ -21,10 +21,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 try:
-    from .secrets import SECRETKEY
+    from .secret_key import SECRETKEY
     SECRET_KEY = SECRETKEY
 except ImportError:
-    raise Exception("secrets.py not detected, please contact josh.cheng.sh@gmail.com for assistance")
+    print("Error: secret_key.py not detected, please contact josh.cheng.sh@gmail.com for assistance")
+    print("I can generate a new random secret key if you would like: ")
+    userinput = input("'Y' or 'N': ")
+    if userinput == 'Y' or userinput == 'y' or userinput == 'yes':
+        print('Generating new secret key and writing to secret_key.py...')
+        from django.core.management.utils import get_random_secret_key
+        SECRET_KEY = get_random_secret_key()
+        print('Secret key: ' + SECRET_KEY)
+        with open('mysite/secret_key.py', 'w') as f:
+            f.write("SECRETKEY = '" + str(SECRET_KEY) + "'")
+    else:
+        raise Exception("SECRET_KEY NOT FOUND OR GENERATED")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
