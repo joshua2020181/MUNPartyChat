@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('homepage.urls')),
     path('signin/', include('signin.urls')),
+    path('<str:confID>/', include('delegate.urls'))
 ]

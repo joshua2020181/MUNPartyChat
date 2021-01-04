@@ -1,0 +1,30 @@
+<style>
+    div.header {
+        color: red;
+
+    }
+    div.footer {
+        color: blue;
+        position: relative;
+        bottom: 0px;
+    }
+</style>
+
+<head>{% block head %}{% endblock %}</head>
+
+<div class="header">
+    <span>CISSMUN WOOOO</span>
+</div>
+
+<div class="menubar">
+
+</div>
+
+<div class="main">
+    {% block content %}
+    {% endblock %}
+</div>
+
+<div class="footer">
+    <span>Created by Joshua Cheng</span>
+</div>

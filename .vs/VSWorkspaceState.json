@@ -3,8 +3,8 @@
     "",
     "\\mysite",
     "\\mysite\\homepage",
-    "\\mysite\\homepage\\templates",
-    "\\mysite\\homepage\\templates\\homepage",
+    "\\mysite\\homepage\\static",
+    "\\mysite\\homepage\\static\\homepage",
     "\\mysite\\mysite",
     "\\mysite\\signin",
     "\\mysite\\signin\\static",
@@ -12,6 +12,6 @@
     "\\mysite\\signin\\templates",
     "\\mysite\\signin\\templates\\signin"
   ],
-  "SelectedNode": "\\mysite\\homepage\\models.py",
+  "SelectedNode": "\\mysite\\signin\\static\\signin\\style.css",
   "PreviewInSolutionExplorer": false
 }

@@ -1,0 +1,53 @@
+html {
+    background-color: lightgrey;
+}
+
+#center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.top {
+    text-align: center;
+    font: bold 30px Copperplate, Fantasy;
+    color: #001690;
+}
+
+.label {
+}
+
+.input {
+    width: 100%;
+}
+
+.button {
+    background-color: lightgrey;
+}
+
+
+#holder {
+    margin: auto;
+    width: 50%;
+    padding: 0px;
+    border: 3px solid #000000;
+    border-radius: 8px;
+    display: block;
+    background-color: #f1f1f1;
+    position: relative;
+    top: -30%;
+}
+
+div.form {
+    display: grid;
+    grid-template-columns: auto auto;
+    text-align: left;
+    padding: 10px;
+    grid-gap: 10px;
+
+
+}
+
+
