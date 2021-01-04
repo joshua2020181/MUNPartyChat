@@ -1,10 +1,12 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 class Country(models.Model):
     full_name = models.CharField(max_length=150)
     abbr = models.CharField(max_length=10)
+    delegate = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
 
     class Meta:
         ordering = ['abbr']
@@ -12,11 +14,23 @@ class Country(models.Model):
     def __str__(self):
         return self.abbr
 
+class Chair(models.Model):
+    name = models.CharField(max_length=50)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
+
+    class Meta:
+        ordering = ['name']
+    
+    def __str__(self):
+        return self.name
+
 class Committee(models.Model):
     full_name = models.CharField(max_length=150)
     abbr = models.CharField(max_length=10)
 
     countries = models.ManyToManyField(Country)
+    
+    chairs = models.ManyToManyField(Chair)
     
     class Meta:
         ordering = ['abbr']

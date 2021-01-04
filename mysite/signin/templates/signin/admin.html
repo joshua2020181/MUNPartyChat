@@ -1,0 +1,50 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'signin/style.css' %}">
+
+<head>
+    <!-- <meta http-equiv="refresh" content="5" /> -->
+    <title>Admin Sign-in Page</title>
+</head>
+
+<style>
+    div.form { /*overwrites style.css*/
+        display: grid;
+        grid-template-columns: auto auto;
+        text-align: left;
+        padding: 10px;
+        grid-gap: 10px;
+    }
+</style>
+
+
+
+<div id="center">
+    <div id="holder">
+        <div class="top">
+            <span>Admin Sign-in Page:</span>
+        </div>
+        {% if errorMsg %}
+        <span style="color: red; padding: 10px"><strong>{{ errorMsg }}  Please try again.</strong></span>
+        {% endif %}
+        <form action="/signin/admin" method="post">
+            <div class="form">
+                {% csrf_token %}
+                <span class="label">Conference ID: </span>
+                <input class="input" name="confID" type="text" maxlength="20" required />
+                <span class="label">Admin ID: </span>
+                <input class="input" name="adminID" type="text" maxlength="20" required />
+                <span class="label">Password: </span>
+                <input class="input" name="password" type="text" minlength="4" maxlength="30" required />
+                <input type="button" class="back" onclick="window.location.href = '/';" value="Back" />
+                <input class="button" type="submit" value="Sign In" />
+            </div>
+
+        </form>
+    </div>
+
+</div>
+
+<script>
+
+</script>

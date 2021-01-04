@@ -4,7 +4,6 @@
 
 <head>
     <!-- <meta http-equiv="refresh" content="5" /> -->
-    <title>Delegate Sign-in Page</title>
 </head>
 
 <style>
@@ -13,12 +12,12 @@
 <div id="center">
     <div id="holder">
         <div class="top">
-            <span>Delegate Sign-in Page:</span>
+            <span>Chair Sign-in Page:</span>
         </div>
         {% if errorMsg %}
         <span style="color: red; padding: 10px"><strong>{{ errorMsg }}  Please try again.</strong></span>
         {% endif %}
-        <form action="/signin/delegate" method="post">
+        <form action="/signin/chair" method="post">
             <div class="form">
                 {% csrf_token %}
                 <span class="label">Conference ID: </span>
@@ -46,18 +45,18 @@
                 {% endif %}
 
                 {% if selectedCommittee and selectedConference %}
-                <span class="label">Country: </span>
+                <span class="label">Chair: </span>
                 <select class="input" name="country" onchange="this.form.submit()">
                     {% if not selectedCountry %}
-                    <option value="none" selected disabled hidden>Select a Country</option>
+                    <option value="none" selected disabled hidden>Select Position</option>
                     {% else %}
                     <optgroup label="Selected:">
-                        <option value="{{ selectedCountry.id }}" selected>{{ selectedCountry.full_name }}</option>
+                        <option value="{{ selectedCountry.id }}" selected>{{ selectedCountry.name }}</option>
                     </optgroup>
                     {% endif %}
                     <optgroup label="All:">
                         {% for c in countries %}
-                        <option value="{{c.id}}">{{c.full_name}}</option>
+                        <option value="{{c.id}}">{{c.name}}</option>
                         {% endfor %}
                     </optgroup>
                 </select>
