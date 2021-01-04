@@ -45,6 +45,8 @@ class Conference(models.Model):
 
     committees = models.ManyToManyField(Committee)
 
+    logo = models.ImageField(upload_to='conference/logos', null=True)
+
     #def __init__():
     #    if len(self.conf_id) < 1:
     #        print("please define a conference id: ex: CISSMUN2021")

@@ -2,16 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\mysite",
-    "\\mysite\\homepage",
-    "\\mysite\\homepage\\static",
-    "\\mysite\\homepage\\static\\homepage",
-    "\\mysite\\mysite",
+    "\\mysite\\delegate",
+    "\\mysite\\delegate\\static",
+    "\\mysite\\delegate\\static\\delegate",
+    "\\mysite\\delegate\\templates",
+    "\\mysite\\delegate\\templates\\delegate",
+    "\\mysite\\homepage\\templates\\homepage",
     "\\mysite\\signin",
-    "\\mysite\\signin\\static",
-    "\\mysite\\signin\\static\\signin",
-    "\\mysite\\signin\\templates",
-    "\\mysite\\signin\\templates\\signin"
+    "\\mysite\\signin\\templates"
   ],
-  "SelectedNode": "\\mysite\\signin\\static\\signin\\style.css",
+  "SelectedNode": "\\mysite\\delegate\\templates\\delegate\\base.html",
   "PreviewInSolutionExplorer": false
 }
