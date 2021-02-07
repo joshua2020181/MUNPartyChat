@@ -1,0 +1,86 @@
+{
+    "header": {
+        "forum": " Disarmament Commission",
+        "questionOf": " Combatting the militarization of the arctic ",
+        "submittedBy": " The Russian Federation",
+        "committee": "THE DISARMAMENT COMMISSION,"
+    },
+    "preambles": [
+        "<i>Recognizing </i>the<i> </i>wasted potential of the Arctic for energy, land and national purposes,",
+        "<i>Recalling</i> the United Nations Convention on the Law of the Sea which states that member states have the right to establish exclusive economic zones 200 nautical miles from its coast, although this doesn\u2019t cover territorial waters, it does cover the continental shelf,",
+        "<i>Further</i> recognizes the fact that currently the Arctic region is not classified as a global common and should not be treated as such,"
+    ],
+    "clauses": [
+        {
+            "number": 1,
+            "clause": "\t\t<u>Urges</u> for the United Nations to grant the Arctic Council with the right to create legally binding policies and extend their mandate to overseeing all disputes regarding the arctic region, this will be achieved through ways such as but not limited to:",
+            "sub-clauses": [
+                {
+                    "number": "a",
+                    "sub-clause": "a)\t\tproviding certain nations, including the P5, with the right to veto policies,",
+                    "sub-sub-clauses": []
+                },
+                {
+                    "number": "b",
+                    "sub-clause": "b)\t\trecognizing the potential of the arctic for commercial and technological purposes and therefore grants nations in the Arctic Council full autonomy over their Exclusive Economic Zones,",
+                    "sub-sub-clauses": [
+                        {
+                            "number": "i",
+                            "sub-sub-clause": "i)\t\trealizing the fact that the Exclusive Economic Zones should be considered as a part of their respected countries, meaning that Freedom of Exploration laws should not exempt foreign intrusion,"
+                        },
+                        {
+                            "number": "ii",
+                            "sub-sub-clause": "ii)\t\tcalling upon the Arctic Council to determine the borders of such Exclusive Economic Zones"
+                        }
+                    ]
+                },
+                {
+                    "number": "c",
+                    "sub-clause": "c)\t\tallowing member states to provide their input to ensure that the Arctic will not be solely be determined by the eight Arctic Council states and representatives in the arctic circle, by implementing new strategies to integrate and include non-Arctic states into the Arctic Council,",
+                    "sub-sub-clauses": []
+                }
+            ]
+        },
+        {
+            "number": 2,
+            "clause": "\t\t<u>Calls upon</u> the Arctic Council to create a unilateral treaty named the International Arctic Treaty (IAT) in order to ensure the peaceful usage of the arctic region which will be achieved through ways such as but not limited to:",
+            "sub-clauses": [
+                {
+                    "number": "a",
+                    "sub-clause": "a)\t\tallowing the deployment of military personnel to exclusive economic zones in order to defend the respected nation\u2019s interest,",
+                    "sub-sub-clauses": []
+                },
+                {
+                    "number": "b",
+                    "sub-clause": "b)\t\tdedicating a portion of the Arctic region as a global common which can be used by any member state for exploration and research purposes,",
+                    "sub-sub-clauses": []
+                }
+            ]
+        },
+        {
+            "number": 3,
+            "clause": "\t\t<u>Asks for</u> the enforcement of Arctic treaties, such as the (IAT) by the United Nations, achieved through ways such as but not limited to:",
+            "sub-clauses": [
+                {
+                    "number": "a",
+                    "sub-clause": "a)\t\tensuring that all signatories abide by the articles through investigations conducted by the United Nations or another neutral party selected by the Arctic council, this will be achieved through ways such as but not limited to:",
+                    "sub-sub-clauses": [
+                        {
+                            "number": "i",
+                            "sub-sub-clause": "i)\t\tallowing the Arctic Council to maintain headquarters within the Arctic region and granting the organization with the right to investigate "
+                        },
+                        {
+                            "number": "ii",
+                            "sub-sub-clause": "ii)\t\tencourages member nations to disclose information regarding their Arctic programs to the United Nation, this will be done at the discretion of member nations,"
+                        }
+                    ]
+                },
+                {
+                    "number": "b",
+                    "sub-clause": "b)\t\tnotifying the Arctic Council if any violations were to be discovered through the investigation process stated in clause 4a, the Arctic Council will then decide the punishments that will be imposed upon the offender, punishments such as but not limited to will be considered:",
+                    "sub-sub-clauses": []
+                }
+            ]
+        }
+    ]
+}

@@ -2,16 +2,16 @@
   "ExpandedNodes": [
     "",
     "\\mysite",
+    "\\mysite\\delegate",
+    "\\mysite\\delegate\\templates",
+    "\\mysite\\delegate\\templates\\delegate",
     "\\mysite\\homepage",
-    "\\mysite\\homepage\\static",
-    "\\mysite\\homepage\\static\\homepage",
+    "\\mysite\\media",
     "\\mysite\\mysite",
     "\\mysite\\signin",
-    "\\mysite\\signin\\static",
-    "\\mysite\\signin\\static\\signin",
     "\\mysite\\signin\\templates",
     "\\mysite\\signin\\templates\\signin"
   ],
-  "SelectedNode": "\\mysite\\signin\\static\\signin\\style.css",
+  "SelectedNode": "\\mysite\\homepage\\models.py",
   "PreviewInSolutionExplorer": false
 }

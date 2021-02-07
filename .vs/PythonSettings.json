@@ -1,3 +1,4 @@
 {
-  "Interpreter": "CondaEnv|CondaEnv|munpartychat"
+  "Interpreter": "CondaEnv|CondaEnv|munpartychat",
+  "SuppressConfigureTestFrameworkPrompt": "true"
 }

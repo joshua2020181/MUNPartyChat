@@ -1,0 +1,88 @@
+body {
+    position: relative;
+    min-height: 100vh;
+}
+
+div.header {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 3px solid black;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+div.main {
+    padding-bottom: 50px;
+}
+
+
+div.menubar {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    border: 3px solid black;
+}
+
+button.menubutton {
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: arial, sans-serif;
+    cursor: pointer;
+}
+
+button.menubutton:hover {
+    background-color: lightgrey;
+}
+
+div.notesdropdown {
+    box-sizing: border-box;
+}
+
+#notes {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+}
+
+div.dropdown_content {
+    box-sizing: border-box;
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 10%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+div.dropdown_content > button {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+}
+
+div.notesdropdown:hover div.dropdown_content {
+    display: block;
+}
+
+
+
+
+#userinfo {
+    text-align: right;
+    margin: 0;
+}
+
+p {
+    margin: inherit;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    color: blue;
+    text-align: right;
+    font-size: 12px;
+}

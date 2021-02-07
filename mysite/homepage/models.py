@@ -28,9 +28,9 @@ class Committee(models.Model):
     full_name = models.CharField(max_length=150)
     abbr = models.CharField(max_length=10)
 
-    countries = models.ManyToManyField(Country)
+    countries = models.ManyToManyField(Country, blank=True)
     
-    chairs = models.ManyToManyField(Chair)
+    chairs = models.ManyToManyField(Chair, blank=True)
     
     class Meta:
         ordering = ['abbr']
@@ -43,11 +43,12 @@ class Conference(models.Model):
     abbr = models.CharField(max_length=15)
     conf_id = models.CharField(max_length=20)
 
-    committees = models.ManyToManyField(Committee)
+    committees = models.ManyToManyField(Committee, blank=True)
 
-    #def __init__():
-    #    if len(self.conf_id) < 1:
-    #        print("please define a conference id: ex: CISSMUN2021")
+    def file_path(instance, filename):
+        return instance.conf_id + '/logo/' + filename
+    
+    logo = models.ImageField(upload_to=file_path, null=True, blank=True)
 
     class Meta:
         ordering = ['abbr']

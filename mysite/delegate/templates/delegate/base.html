@@ -1,23 +1,46 @@
-<style>
-    div.header {
-        color: red;
+{% load static %}
 
-    }
-    div.footer {
-        color: blue;
-        position: relative;
-        bottom: 0px;
-    }
-</style>
+<link rel="stylesheet" type="text/css" href="{% static 'delegate/base.css' %}">
+
 
 <head>{% block head %}{% endblock %}</head>
-
+<body>
 <div class="header">
-    <span>CISSMUN WOOOO</span>
+    <span >WEBSITE LOGO</span>
+    <img src={{ conference.logo.url }}>
+    <div id="userinfo">
+        <p>{{user.first_name}} {{user.last_name}}</p>
+        <p>{{ committee.full_name|default:"nothing" }}</p>
+        <p>Delegate of: {{ country.full_name|default:"nothing" }}</p>
+    </div>
+
 </div>
 
-<div class="menubar">
+{% if alerts %}
+    {% for a in alerts %}
+        <script>alert("{{a}}")</script>
+    {% endfor %}
+    
+{% endif %}
 
+<div class="menubar">
+    <button class="menubutton" id="home" onclick="location.href = '/' + location.pathname.split('/').slice(1, 3).join('/');">Home</button> <!--goes to "/<confid>/<userType>"-->
+    <button class="menubutton" id="current" onclick="location.href = '/' + location.pathname.split('/').slice(1, 3).join('/') + '/current';">Current</button>
+    <button class="menubutton" id="upload" onclick="location.href = ('/' + location.pathname.split('/').slice(1, 3).join('/') + '/upload');">Upload</button>
+    <button class="menubutton" id="amend" onclick="location.href = ('/' + location.pathname.split('/').slice(1, 3).join('/') + '/amend');">Amend</button>
+    <div class="notesdropdown">
+        <button class="menubutton" id="notes" onclick="location.href = ('/' + location.pathname.split('/').slice(1, 3).join('/') + '/notes');">Note Passing</button>
+        <div class="dropdown_content">
+            <button class="menubutton" id="inbox" onclick="location.href = '/' + location.pathname.split('/').slice(1, 3).join('/') + '/inbox';">Inbox</button>
+            <button class="menubutton" id="new" onclick="location.href = '/' + location.pathname.split('/').slice(1, 3).join('/') + '/new';">New</button>
+            <button class="menubutton" id="pending" onclick="location.href = '/' + location.pathname.split('/').slice(1, 3).join('/') + '/pending';">Pending</button>
+        </div>
+    </div>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <button class="menubutton" id="logout" onclick="location.href = '/logout';">Logout</button>
 </div>
 
 <div class="main">
@@ -25,6 +48,7 @@
     {% endblock %}
 </div>
 
-<div class="footer">
+<footer class="footer">
     <span>Created by Joshua Cheng</span>
-</div>
+</footer>
+</body>

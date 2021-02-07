@@ -1,0 +1,24 @@
+{% extends 'delegate/base.html' %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'signin/style.css' %}">
+
+{% block head %}
+    <title>Upload Resolution</title>
+{% endblock %}
+
+
+
+
+{% block content %}
+<p>Upload resolution</p>
+
+<p>{{resolution.resolution}}</p>
+
+<form action="upload" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" id="myFile" name="uploadedReso" />
+    <input class="button" type="submit" value="Save" />
+</form>
+
+{% endblock %}
