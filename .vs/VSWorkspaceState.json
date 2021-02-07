@@ -3,14 +3,15 @@
     "",
     "\\mysite",
     "\\mysite\\delegate",
-    "\\mysite\\delegate\\static",
-    "\\mysite\\delegate\\static\\delegate",
     "\\mysite\\delegate\\templates",
     "\\mysite\\delegate\\templates\\delegate",
-    "\\mysite\\homepage\\templates\\homepage",
+    "\\mysite\\homepage",
+    "\\mysite\\media",
+    "\\mysite\\mysite",
     "\\mysite\\signin",
-    "\\mysite\\signin\\templates"
+    "\\mysite\\signin\\templates",
+    "\\mysite\\signin\\templates\\signin"
   ],
-  "SelectedNode": "\\mysite\\delegate\\templates\\delegate\\base.html",
+  "SelectedNode": "\\mysite\\homepage\\models.py",
   "PreviewInSolutionExplorer": false
 }

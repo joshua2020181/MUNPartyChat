@@ -19,4 +19,5 @@ from . import views
 
 urlpatterns = [
     path('delegate', views.delegate, name='delegate'),
+    path('delegate/<str:page>', views.delegate, name='delegate'),
 ]
