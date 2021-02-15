@@ -1,14 +1,20 @@
+
+import os
+print(os.path.abspath(__file__))
+
 from docx2python import docx2python
 from Resolution import Resolution
 
-with open('Mock Resolution.docx', "w") as f:
+
+with open('resolution.docx', "w") as f:
     doc = docx2python(f, html = True)
     print(doc.text)
+    print("---------------------------------")
 
-#reso = Resolution(doc.text)
+reso = Resolution(doc.text)
 
 
-#print(reso.header)
+print(reso)
 
 #import json
 

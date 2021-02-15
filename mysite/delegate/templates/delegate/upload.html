@@ -4,16 +4,42 @@
 <link rel="stylesheet" type="text/css" href="{% static 'signin/style.css' %}">
 
 {% block head %}
-    <title>Upload Resolution</title>
+<title>Upload Resolution</title>
 {% endblock %}
 
 
 
 
 {% block content %}
+
 <p>Upload resolution</p>
 
-<p>{{resolution.resolution}}</p>
+<br />
+<br />
+
+<p><b>FORUM: </b>{{resolution.resolution.header.forum}}</p>
+<p><b>QUESTION OF: </b>{{resolution.resolution.header.questionOf}}</p>
+<p><b>SUBMITTED BY: </b>{{resolution.resolution.header.submittedBy}}</p>
+<br />
+<p>{{resolution.resolution.header.committee}}</p>
+<br />
+{% for p in resolution.resolution.preambles %}
+<p>{{p|safe}}</p>
+<br />
+{% endfor %}
+
+{% for c in resolution.resolution.clauses %}
+    <p>{{c.clause|safe}}</p>
+    {% for sub in c.subClauses %}
+        <p style="text-indent: 40px">{{sub.subClause|safe}}</p>
+        {% for subsub in sub.subSubClauses %}
+            <p style="text-indent: 80px">{{subsub.subSubClause|safe}}</p>
+        {% endfor %}
+    {% endfor %}
+    <br />
+{% endfor %}
+
+
 
 <form action="upload" method="post" enctype="multipart/form-data">
     {% csrf_token %}
