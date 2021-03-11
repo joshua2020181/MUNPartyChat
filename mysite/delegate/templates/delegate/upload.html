@@ -1,24 +1,155 @@
 {% extends 'delegate/base.html' %}
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'signin/style.css' %}">
 
 {% block head %}
-    <title>Upload Resolution</title>
+<title>Upload Resolution</title>
+<link rel="stylesheet" type="text/css" href="{% static 'delegate/upload.css' %}">
+
 {% endblock %}
 
 
 
 
 {% block content %}
+
 <p>Upload resolution</p>
 
-<p>{{resolution.resolution}}</p>
+<p>{% static 'delegate/upload.css' %}</p>
+
+<br />
+<br />
 
 <form action="upload" method="post" enctype="multipart/form-data">
     {% csrf_token %}
+    {% if resolution.resolution %}
+    <div id="resoholder">
+        <div id="toprow">
+            <p>Resolution ID: {{resolution.id}}</p>
+            <div id="editbar">
+                <button type="button" onclick="document.execCommand('bold');"><b>Bold</b></button>
+                <button type="button" onclick="document.execCommand('underline');"><u>Underline</u></button>
+                <button type="button" onclick="document.execCommand('italic');"><i>Italic</i></button>
+            </div>
+        </div>
+        <div id="leftcolumn"></div>
+        <div id="resotext">
+            <label for="forum"><b>FORUM: </b></label>
+            <input type="text" class="headerinput" id="forum" name="forum" value="{{resolution.resolution.header.forum}}" /> <br />
+            <label for="questionOf"><b>QUESTION OF: </b></label>
+            <input type="text" class="headerinput" id="questionOf" name="questionOf" value="{{resolution.resolution.header.questionOf}}" /><br />
+            <label for="submittedBy"><b>SUBMITTED BY: </b></label>
+            <input type="text" class="headerinput" id="submittedBy" name="submittedBy" value="{{resolution.resolution.header.submittedBy}}" /><br />
+            <br />
+            <input type="text" class="headerinput" id="committee" name="committee" value="{{resolution.resolution.header.committee|default:"The General Assembly," }}" /><br />
+
+            <br />
+            {% for p in resolution.resolution.preambles %}
+            <div contenteditable="true" class="preamble" id="preamble{{p.number}}">{{p.preamble|safe}}</div>
+            <br />
+            {% endfor %}
+
+            <ol type="1">
+                {% for c in resolution.resolution.clauses %}
+                <li id="clause"><div contenteditable="true" class="clause" id="clause{{c.number}}">{{c.clause|safe}}</div></li>
+                <ol type="a">
+                    {% for sub in c.subClauses %}
+                    <li><div contenteditable="true" class="subclause" id="subclause{{sub.number}}">{{sub.subClause|safe}}</div></li>
+                    <ol type="i">
+                        {% for subsub in sub.subSubClauses %}
+                        <li><div contenteditable="true" class="subsubclause" id="subsubclause{{subsub.number}}">{{subsub.subSubClause|safe}}</div></li>
+                        {% endfor %}
+                    </ol>
+                    {% endfor %}
+                </ol>
+                {% endfor %}
+            </ol>
+        </div>
+        <div id="rightcolumn"></div>
+        <div id="bottomrow"></div>
+    </div>
+    {% else %}
     <input type="file" id="myFile" name="uploadedReso" />
+    {% endif %}
     <input class="button" type="submit" value="Save" />
 </form>
+
+<script>
+    window.onscroll = function () { scrollfunc() };
+    var editbar = document.getElementById('editbar');
+    var sticky = editbar.offsetTop;
+
+    function scrollfunc() {
+        if (window.pageYOffset >= sticky) {
+            editbar.classList.add("sticky");
+        } else {
+            editbar.classList.remove("sticky");
+        }
+    }
+
+    /*
+    function editablediv() {
+        console.log(document.getElementById("editablediv").innerHTML)
+    }
+    function edit(id) {
+        var textbox = document.getElementById(id + "_span");
+
+        var holder = document.createElement("div")
+        holder.setAttribute('id', id + "_holder")
+        holder.setAttribute('class', 'preamble_holder')
+
+        var boldbtn = document.createElement("button")
+        boldbtn.setAttribute('type', 'button') // prevents button from submitting the form
+        boldbtn.setAttribute('onclick', "document.execCommand('bold');")
+        boldbtn.innerHTML = '<b>Bold</b>'
+        holder.appendChild(boldbtn)
+
+        var ulinebtn = document.createElement("button")
+        ulinebtn.setAttribute('type', 'button') // prevents button from submitting the form
+        ulinebtn.setAttribute('onclick', "document.execCommand('underline');")
+        ulinebtn.innerHTML = '<u>Underline</u>'
+        holder.appendChild(ulinebtn)
+
+        var itabtn = document.createElement("button")
+        itabtn.setAttribute('type', 'button') // prevents button from submitting the form
+        itabtn.setAttribute('onclick', "document.execCommand('italic');")
+        itabtn.innerHTML = '<i>Italic</i>'
+        holder.appendChild(itabtn)
+
+
+        var editablediv = document.createElement("div");
+        editablediv.setAttribute("class", "preambleEdit")
+        editablediv.setAttribute("id", id + "_editablediv")
+        editablediv.setAttribute("contenteditable", "true");
+        editablediv.innerHTML = textbox.innerHTML;
+        holder.appendChild(editablediv)
+
+        textbox.parentNode.replaceChild(holder, textbox)
+
+        var editbtn = document.getElementById(id + "_btn")
+        editbtn.setAttribute("class", "savebtn")
+        editbtn.setAttribute("onclick", "save(\"" + id + "\")")
+        editbtn.innerHTML = "SAVE"
+    }
+
+    function save(id) {
+        var holder = document.getElementById(id + "_holder");
+        var editablediv = document.getElementById(id + "_editablediv");
+
+        var span = document.createElement("span")
+        span.setAttribute('id', id + '_span')
+        span.setAttribute('class', 'preamble_span')
+        span.innerHTML = editablediv.innerHTML
+
+        holder.parentNode.replaceChild(span, holder)
+
+        var savebtn = document.getElementById(id + "_btn")
+        savebtn.setAttribute("class", "editbtn")
+        savebtn.setAttribute("onclick", "edit(\"" + id + "\")")
+        savebtn.innerHTML = "EDIT"
+    }*/
+
+
+</script>
 
 {% endblock %}

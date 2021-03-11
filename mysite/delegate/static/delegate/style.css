@@ -1,4 +1,18 @@
 html {
+    background-color: blue;
+}
+
+.p {
+    color: blue;
+}
+
+#resoholder {
+    border: 5px solid black;
+}
+
+/*
+
+html {
     background-color: lightgrey;
 }
 
@@ -49,5 +63,5 @@ div.form {
 
 
 }
-
+    */
 

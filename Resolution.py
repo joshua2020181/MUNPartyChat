@@ -28,6 +28,7 @@ class Resolution:
             return
 
         self.header["forum"] = self.resoFind("</b>", "\n", "FORUM")[0]
+        print(self.header["forum"])
         self.header["questionOf"] = self.resoFind("</b>", "\n", "QUESTION OF")[0]
         self.header["submittedBy"] = self.resoFind("</b>", "\n", "SUBMITTED BY")[0]
         self.workingText = self.workingText[self.resoFind("\n", "\n", "SUBMITTED BY")[1]:].lstrip()
@@ -74,6 +75,7 @@ class Resolution:
                             subSubClauseNum += 1
                     clause["sub-clauses"].append(subclause)
                     subClauseNum += 1
+            print(clause)
             self.clauses.append(clause)
             clauseNum += 1
         self.resolution = {

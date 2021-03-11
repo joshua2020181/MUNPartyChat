@@ -1,0 +1,124 @@
+
+
+#resoholder {
+    border: 2px solid black;
+
+    display: grid;
+    grid-template: auto auto auto / auto auto auto; /*3x3 grid*/
+
+    min-height: 1188px; /*297mm x 4 for A4 paper*/
+    max-width: 840px; /*210mm x 4 for A4 paper*/
+    /*padding: 102px;*/
+}
+
+
+.sticky {
+    position: fixed;
+    top: 0;
+}
+
+.sticky + #resoholder {
+    padding-top: 60px;
+}
+
+
+
+#toprow {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    height: 76px; /*0.75in x 4*/
+}
+#leftcolumn {
+    grid-row-start: 2;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 1;
+    width: 76px; /*0.75in x 4*/
+}
+#resotext {
+    grid-row-start: 2;
+    grid-row-end: 2;
+    grid-column-start: 2;
+    grid-column-end: 2;
+}
+#rightcolumn {
+    grid-row-start: 2;
+    grid-row-end: 2;
+    grid-column-start: 3;
+    grid-column-end: 3;
+    width: 76px; /*0.75in x 4*/
+}
+#bottomrow {
+    grid-row-start: 3;
+    grid-row-end: 4;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    min-height: 76px; /*0.75in x 4*/
+}
+
+.headerinput {
+    width: 50%;
+    border: 0px;
+}
+
+.headerinput:focus {
+    border: 1px solid black;
+}
+
+/*
+
+html {
+    background-color: lightgrey;
+}
+
+#center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.top {
+    text-align: center;
+    font: bold 30px Copperplate, Fantasy;
+    color: #001690;
+}
+
+.label {
+}
+
+.input {
+    width: 100%;
+}
+
+.button {
+    background-color: lightgrey;
+}
+
+
+#holder {
+    margin: auto;
+    width: 50%;
+    padding: 0px;
+    border: 3px solid #000000;
+    border-radius: 8px;
+    display: block;
+    background-color: #f1f1f1;
+    position: relative;
+    top: -30%;
+}
+
+div.form {
+    display: grid;
+    grid-template-columns: auto auto;
+    text-align: left;
+    padding: 10px;
+    grid-gap: 10px;
+
+
+}
+    */
+

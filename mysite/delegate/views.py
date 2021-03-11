@@ -48,11 +48,15 @@ def delegate(request, confID, page=''):
             res.save()
 
             doc = docx2python(os.path.join(settings.MEDIA_ROOT, res.resolution_file.name), html = True)
-            print(doc.text)
+            #print(doc.text)
 
             res.resolution = Resolution(doc.text).resolution
         
             context['resolution'] = res
+
+        if request.POST:
+            for i in request.POST.keys():
+                print(i + ": " + request.POST[i])
 
 
     return render(request, f'delegate/{page}.html', context)
