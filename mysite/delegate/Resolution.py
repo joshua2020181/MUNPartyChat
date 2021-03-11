@@ -18,6 +18,10 @@ class Resolution:
         if s.find('<') > -1 and s.find('>') > -1:
             return s[:s.find('<')] + s[s.find('>') + 1:]
         
+    def stripBullet(self, s): #strips "1)" etc from string
+        if s.find(')') > -1 and s.find(')') < 6: # ')' must be in string and within the first 5 characters
+            return s[s.find(')') + 1:]
+
     def __init__(self, text):
         self.rawText = text # keep a copy of the unaltered text
         self.workingText = text # deletes sections as it parses
@@ -39,12 +43,16 @@ class Resolution:
         self.workingText = self.workingText[self.resoFind("\n", "\n", "submitted by")[1]:].lstrip()
         self.header["committee"] = self.resoFind("", "\n")[0]
 
-        print(self.header)
+        #print(self.header)
         self.workingText = self.workingText[self.resoFind("", "\n")[1]:].lstrip()
 
+        preambleCount = 1
         while self.workingText.find("1)", 0, 5) == -1: # 1) is not within the first 5 characters of workingText
-            self.preambles.append(self.resoFind("<i>", "\n", offset = 0)[0]) # offset = -3 to include <i> tag
+            self.preambles.append(
+                {"number": preambleCount,
+                 "preamble": self.resoFind("<i>", "\n", offset = 0)[0]}) # offset = -3 to include <i> tag
             self.workingText = self.workingText[self.resoFind("<i>", "\n", offset = -3)[1]:].lstrip()
+            preambleCount += 1
 
         clauseNum = 1
         while len(self.workingText.strip()) > 0:
@@ -83,6 +91,8 @@ class Resolution:
                     else:
                         self.workingText = self.workingText[self.resoFind(chr(subClauseNum) + ")", "\n")[1]:].lstrip()
 
+                    subclause["subClause"] = self.stripBullet(subclause["subClause"])
+
 
                     if self.workingText.find("i)", 0, 5) > -1: #subclause found
                         subSubClauseNum = 1 # ascii code for a
@@ -103,13 +113,14 @@ class Resolution:
                             else:
                                 self.workingText = self.workingText[self.resoFind(romansymbs[subSubClauseNum] + ")", "\n")[1]:].lstrip()
 
+                            subSubClause["subSubClause"] = self.stripBullet(subSubClause["subSubClause"])
 
                             subclause["subSubClauses"].append(subSubClause)
                             subSubClauseNum += 1
                     clause["subClauses"].append(subclause)
                     subClauseNum += 1
             self.clauses.append(clause)
-            print(self.clauses[:10])
+            #print(self.clauses[:10])
             clauseNum += 1
         self.resolution = {
             "header": self.header,

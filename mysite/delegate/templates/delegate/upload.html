@@ -17,33 +17,95 @@
 <br />
 <br />
 
-<p><b>FORUM: </b>{{resolution.resolution.header.forum}}</p>
-<p><b>QUESTION OF: </b>{{resolution.resolution.header.questionOf}}</p>
-<p><b>SUBMITTED BY: </b>{{resolution.resolution.header.submittedBy}}</p>
-<br />
-<p>{{resolution.resolution.header.committee}}</p>
-<br />
-{% for p in resolution.resolution.preambles %}
-<p>{{p|safe}}</p>
-<br />
-{% endfor %}
+<div contenteditable="true" id="editablediv">
+    hello hello hello
+</div>
 
-{% for c in resolution.resolution.clauses %}
-    <p>{{c.clause|safe}}</p>
-    {% for sub in c.subClauses %}
-        <p style="text-indent: 40px">{{sub.subClause|safe}}</p>
-        {% for subsub in sub.subSubClauses %}
-            <p style="text-indent: 80px">{{subsub.subSubClause|safe}}</p>
-        {% endfor %}
-    {% endfor %}
-    <br />
-{% endfor %}
+<button type="button" onclick="document.execCommand('bold');">toggle bold</button>
+<button type="button" onclick="document.execCommand('italic');">toggle italic</button>
+<button type="button" onclick="document.execCommand('underline');">toggle underline</button>
+<button type="button" onclick="editablediv()">save</button>
 
+<script>
+    function editablediv() {
+        console.log(document.getElementById("editablediv").innerHTML)
+    }
+    function edit(id) {
+        var textbox = document.getElementById(id+"_span");
+
+        var holder = document.createElement("div")
+
+        var boldbtn = document.createElement("button")
+        boldbtn.setAttribute('type', 'button') // prevents button from submitting the form
+        boldbtn.setAttribute('onclick', "document.execCommand('bold');")
+        boldbtn.innerHTML = '<b>Bold</b>'
+        holder.appendChild(boldbtn)
+
+        var ulinebtn = document.createElement("button")
+        ulinebtn.setAttribute('type', 'button') // prevents button from submitting the form
+        ulinebtn.setAttribute('onclick', "document.execCommand('underline');")
+        ulinebtn.innerHTML = '<u>Underline</u>'
+        holder.appendChild(ulinebtn)
+
+        var itabtn = document.createElement("button")
+        itabtn.setAttribute('type', 'button') // prevents button from submitting the form
+        itabtn.setAttribute('onclick', "document.execCommand('italic');")
+        itabtn.innerHTML = '<i>Italic</i>'
+        holder.appendChild(itabtn)
+        
+
+        var editablediv = document.createElement("div");
+        editablediv.setAttribute("class", "preambleEdit")
+        editablediv.setAttribute("id", id)
+        editablediv.setAttribute("contenteditable", "true");
+        editablediv.innerHTML = textbox.innerHTML;
+        holder.appendChild(editablediv)
+
+        textbox.parentNode.replaceChild(holder, textbox)
+
+        var editbtn = document.getElementById(id + "_btn")
+        editbtn.setAttribute("class", "savebtn")
+        editbtn.setAttribute("onclick", "save(" + id + ")")
+        editbtn.innerHTML = "SAVE"
+    }
+
+
+</script>
 
 
 <form action="upload" method="post" enctype="multipart/form-data">
     {% csrf_token %}
+    {% if resolution.resolution %}
+    <p>Resolution ID: {{resolution.id}}</p>
+    <label for="forum"><b>FORUM: </b></label>
+    <input type="text" id="forum" name="forum" value="{{resolution.resolution.header.forum}}" /> <br />
+    <label for="questionOf"><b>QUESTION OF: </b></label>
+    <input type="text" id="questionOf" name="questionOf" value="{{resolution.resolution.header.questionOf}}" /><br />
+    <label for="submittedBy"><b>SUBMITTED BY: </b></label>
+    <input type="text" id="submittedBy" name="submittedBy" value="{{resolution.resolution.header.submittedBy}}" /><br />
+    <br />
+    <input type="text" id="committee" name="committee" value="{{resolution.resolution.header.committee|default:"The General Assembly," }}" /><br />
+
+    <br />
+    {% for p in resolution.resolution.preambles %}
+    <span id="preamble{{p.number}}_span">{{p.preamble|safe}}</span>
+    <button type="button" onclick="edit('preamble{{ p.number }}')" class="editbtn" id="preamble{{p.number}}_btn">EDIT</button>
+    <br />
+    {% endfor %}
+
+    {% for c in resolution.resolution.clauses %}
+    <p id="clause">{{c.number}}. {{c.clause|safe}}</p>
+    {% for sub in c.subClauses %}
+    <p style="text-indent: 40px">{{sub.number}}. {{sub.subClause|safe}}</p>
+    {% for subsub in sub.subSubClauses %}
+    <p style="text-indent: 80px">{{subsub.number}}. {{subsub.subSubClause|safe}}</p>
+    {% endfor %}
+    {% endfor %}
+    <br />
+    {% endfor %}
+    {% else %}
     <input type="file" id="myFile" name="uploadedReso" />
+    {% endif %}
     <input class="button" type="submit" value="Save" />
 </form>
 

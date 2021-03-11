@@ -12,6 +12,6 @@
     "\\mysite\\signin\\templates",
     "\\mysite\\signin\\templates\\signin"
   ],
-  "SelectedNode": "\\mysite\\homepage\\models.py",
+  "SelectedNode": "\\mysite\\delegate\\views.py",
   "PreviewInSolutionExplorer": false
 }
