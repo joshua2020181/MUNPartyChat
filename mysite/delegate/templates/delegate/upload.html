@@ -1,10 +1,11 @@
 {% extends 'delegate/base.html' %}
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'signin/style.css' %}">
 
 {% block head %}
 <title>Upload Resolution</title>
+<link rel="stylesheet" type="text/css" href="{% static 'delegate/upload.css' %}">
+
 {% endblock %}
 
 
@@ -14,26 +15,88 @@
 
 <p>Upload resolution</p>
 
+<p>{% static 'delegate/upload.css' %}</p>
+
 <br />
 <br />
 
-<div contenteditable="true" id="editablediv">
-    hello hello hello
-</div>
+<form action="upload" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% if resolution.resolution %}
+    <div id="resoholder">
+        <div id="toprow">
+            <p>Resolution ID: {{resolution.id}}</p>
+            <div id="editbar">
+                <button type="button" onclick="document.execCommand('bold');"><b>Bold</b></button>
+                <button type="button" onclick="document.execCommand('underline');"><u>Underline</u></button>
+                <button type="button" onclick="document.execCommand('italic');"><i>Italic</i></button>
+            </div>
+        </div>
+        <div id="leftcolumn"></div>
+        <div id="resotext">
+            <label for="forum"><b>FORUM: </b></label>
+            <input type="text" class="headerinput" id="forum" name="forum" value="{{resolution.resolution.header.forum}}" /> <br />
+            <label for="questionOf"><b>QUESTION OF: </b></label>
+            <input type="text" class="headerinput" id="questionOf" name="questionOf" value="{{resolution.resolution.header.questionOf}}" /><br />
+            <label for="submittedBy"><b>SUBMITTED BY: </b></label>
+            <input type="text" class="headerinput" id="submittedBy" name="submittedBy" value="{{resolution.resolution.header.submittedBy}}" /><br />
+            <br />
+            <input type="text" class="headerinput" id="committee" name="committee" value="{{resolution.resolution.header.committee|default:"The General Assembly," }}" /><br />
 
-<button type="button" onclick="document.execCommand('bold');">toggle bold</button>
-<button type="button" onclick="document.execCommand('italic');">toggle italic</button>
-<button type="button" onclick="document.execCommand('underline');">toggle underline</button>
-<button type="button" onclick="editablediv()">save</button>
+            <br />
+            {% for p in resolution.resolution.preambles %}
+            <div contenteditable="true" class="preamble" id="preamble{{p.number}}">{{p.preamble|safe}}</div>
+            <br />
+            {% endfor %}
+
+            <ol type="1">
+                {% for c in resolution.resolution.clauses %}
+                <li id="clause"><div contenteditable="true" class="clause" id="clause{{c.number}}">{{c.clause|safe}}</div></li>
+                <ol type="a">
+                    {% for sub in c.subClauses %}
+                    <li><div contenteditable="true" class="subclause" id="subclause{{sub.number}}">{{sub.subClause|safe}}</div></li>
+                    <ol type="i">
+                        {% for subsub in sub.subSubClauses %}
+                        <li><div contenteditable="true" class="subsubclause" id="subsubclause{{subsub.number}}">{{subsub.subSubClause|safe}}</div></li>
+                        {% endfor %}
+                    </ol>
+                    {% endfor %}
+                </ol>
+                {% endfor %}
+            </ol>
+        </div>
+        <div id="rightcolumn"></div>
+        <div id="bottomrow"></div>
+    </div>
+    {% else %}
+    <input type="file" id="myFile" name="uploadedReso" />
+    {% endif %}
+    <input class="button" type="submit" value="Save" />
+</form>
 
 <script>
+    window.onscroll = function () { scrollfunc() };
+    var editbar = document.getElementById('editbar');
+    var sticky = editbar.offsetTop;
+
+    function scrollfunc() {
+        if (window.pageYOffset >= sticky) {
+            editbar.classList.add("sticky");
+        } else {
+            editbar.classList.remove("sticky");
+        }
+    }
+
+    /*
     function editablediv() {
         console.log(document.getElementById("editablediv").innerHTML)
     }
     function edit(id) {
-        var textbox = document.getElementById(id+"_span");
+        var textbox = document.getElementById(id + "_span");
 
         var holder = document.createElement("div")
+        holder.setAttribute('id', id + "_holder")
+        holder.setAttribute('class', 'preamble_holder')
 
         var boldbtn = document.createElement("button")
         boldbtn.setAttribute('type', 'button') // prevents button from submitting the form
@@ -52,11 +115,11 @@
         itabtn.setAttribute('onclick', "document.execCommand('italic');")
         itabtn.innerHTML = '<i>Italic</i>'
         holder.appendChild(itabtn)
-        
+
 
         var editablediv = document.createElement("div");
         editablediv.setAttribute("class", "preambleEdit")
-        editablediv.setAttribute("id", id)
+        editablediv.setAttribute("id", id + "_editablediv")
         editablediv.setAttribute("contenteditable", "true");
         editablediv.innerHTML = textbox.innerHTML;
         holder.appendChild(editablediv)
@@ -65,48 +128,28 @@
 
         var editbtn = document.getElementById(id + "_btn")
         editbtn.setAttribute("class", "savebtn")
-        editbtn.setAttribute("onclick", "save(" + id + ")")
+        editbtn.setAttribute("onclick", "save(\"" + id + "\")")
         editbtn.innerHTML = "SAVE"
     }
 
+    function save(id) {
+        var holder = document.getElementById(id + "_holder");
+        var editablediv = document.getElementById(id + "_editablediv");
+
+        var span = document.createElement("span")
+        span.setAttribute('id', id + '_span')
+        span.setAttribute('class', 'preamble_span')
+        span.innerHTML = editablediv.innerHTML
+
+        holder.parentNode.replaceChild(span, holder)
+
+        var savebtn = document.getElementById(id + "_btn")
+        savebtn.setAttribute("class", "editbtn")
+        savebtn.setAttribute("onclick", "edit(\"" + id + "\")")
+        savebtn.innerHTML = "EDIT"
+    }*/
+
 
 </script>
-
-
-<form action="upload" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {% if resolution.resolution %}
-    <p>Resolution ID: {{resolution.id}}</p>
-    <label for="forum"><b>FORUM: </b></label>
-    <input type="text" id="forum" name="forum" value="{{resolution.resolution.header.forum}}" /> <br />
-    <label for="questionOf"><b>QUESTION OF: </b></label>
-    <input type="text" id="questionOf" name="questionOf" value="{{resolution.resolution.header.questionOf}}" /><br />
-    <label for="submittedBy"><b>SUBMITTED BY: </b></label>
-    <input type="text" id="submittedBy" name="submittedBy" value="{{resolution.resolution.header.submittedBy}}" /><br />
-    <br />
-    <input type="text" id="committee" name="committee" value="{{resolution.resolution.header.committee|default:"The General Assembly," }}" /><br />
-
-    <br />
-    {% for p in resolution.resolution.preambles %}
-    <span id="preamble{{p.number}}_span">{{p.preamble|safe}}</span>
-    <button type="button" onclick="edit('preamble{{ p.number }}')" class="editbtn" id="preamble{{p.number}}_btn">EDIT</button>
-    <br />
-    {% endfor %}
-
-    {% for c in resolution.resolution.clauses %}
-    <p id="clause">{{c.number}}. {{c.clause|safe}}</p>
-    {% for sub in c.subClauses %}
-    <p style="text-indent: 40px">{{sub.number}}. {{sub.subClause|safe}}</p>
-    {% for subsub in sub.subSubClauses %}
-    <p style="text-indent: 80px">{{subsub.number}}. {{subsub.subSubClause|safe}}</p>
-    {% endfor %}
-    {% endfor %}
-    <br />
-    {% endfor %}
-    {% else %}
-    <input type="file" id="myFile" name="uploadedReso" />
-    {% endif %}
-    <input class="button" type="submit" value="Save" />
-</form>
 
 {% endblock %}
