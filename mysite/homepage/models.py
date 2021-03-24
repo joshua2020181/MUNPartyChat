@@ -7,7 +7,7 @@ class Country(models.Model):
     full_name = models.CharField(max_length=150)
     abbr = models.CharField(max_length=10)
     delegate = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
-
+    
     class Meta:
         ordering = ['abbr']
     

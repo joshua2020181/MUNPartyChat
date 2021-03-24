@@ -17,12 +17,12 @@ class Reso(models.Model):
             "preambles": [],
             "clauses": [{ "number": 0,
                             "clause": "",
-                            "sub-clauses": [{
+                            "subClauses": [{
                                     "number": 'a',
-                                    "sub-clause": "",
-                                    "sub-sub-clauses": [{
+                                    "subClause": "",
+                                    "subSubClauses": [{
                                             "number": 'i',
-                                            "sub-sub-clause": "",
+                                            "subSubClause": "",
                                         }],
                                 }],
                         }],
