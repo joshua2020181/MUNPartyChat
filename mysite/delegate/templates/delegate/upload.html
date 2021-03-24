@@ -1,5 +1,6 @@
 {% extends 'delegate/base.html' %}
 {% load static %}
+{% load js %}
 
 
 {% block head %}
@@ -9,18 +10,9 @@
 {% endblock %}
 
 
-
-
 {% block content %}
 
-<p>Upload resolution</p>
-
-<p>{% static 'delegate/upload.css' %}</p>
-
-<br />
-<br />
-
-<form action="upload" method="post" enctype="multipart/form-data">
+<form action="upload" id="myForm" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {% if resolution.resolution %}
     <div id="resoholder">
@@ -34,36 +26,47 @@
         </div>
         <div id="leftcolumn"></div>
         <div id="resotext">
-            <label for="forum"><b>FORUM: </b></label>
-            <input type="text" class="headerinput" id="forum" name="forum" value="{{resolution.resolution.header.forum}}" /> <br />
-            <label for="questionOf"><b>QUESTION OF: </b></label>
-            <input type="text" class="headerinput" id="questionOf" name="questionOf" value="{{resolution.resolution.header.questionOf}}" /><br />
-            <label for="submittedBy"><b>SUBMITTED BY: </b></label>
-            <input type="text" class="headerinput" id="submittedBy" name="submittedBy" value="{{resolution.resolution.header.submittedBy}}" /><br />
-            <br />
-            <input type="text" class="headerinput" id="committee" name="committee" value="{{resolution.resolution.header.committee|default:"The General Assembly," }}" /><br />
+            <div id="header">
+                <label for="forum"><b>FORUM: </b></label>
+                <input type="text" class="headerinput" id="forum" name="forum" value="{{resolution.resolution.header.forum}}" /> <br />
+                <label for="questionOf"><b>QUESTION OF: </b></label>
+                <input type="text" class="headerinput" id="questionOf" name="questionOf" value="{{resolution.resolution.header.questionOf}}" /><br />
+                <label for="submittedBy"><b>SUBMITTED BY: </b></label>
+                <input type="text" class="headerinput" id="submittedBy" name="submittedBy" value="{{resolution.resolution.header.submittedBy}}" /><br />
+                <br />
+                <input type="text" class="headerinput" id="committee" name="committee" value="{{resolution.resolution.header.committee|default:"The General Assembly," }}" /><br />
 
-            <br />
-            {% for p in resolution.resolution.preambles %}
-            <div contenteditable="true" class="preamble" id="preamble{{p.number}}">{{p.preamble|safe}}</div>
-            <br />
-            {% endfor %}
+                <br />
+            </div>
 
-            <ol type="1">
-                {% for c in resolution.resolution.clauses %}
-                <li id="clause"><div contenteditable="true" class="clause" id="clause{{c.number}}">{{c.clause|safe}}</div></li>
-                <ol type="a">
-                    {% for sub in c.subClauses %}
-                    <li><div contenteditable="true" class="subclause" id="subclause{{sub.number}}">{{sub.subClause|safe}}</div></li>
-                    <ol type="i">
-                        {% for subsub in sub.subSubClauses %}
-                        <li><div contenteditable="true" class="subsubclause" id="subsubclause{{subsub.number}}">{{subsub.subSubClause|safe}}</div></li>
+            <div id="preambles">
+                <!--{% for p in resolution.resolution.preambles %}
+                <div contenteditable="true" class="preamble" id="preamble_{{p.number}}_div">{{p.preamble|safe}}</div>
+                <input type="hidden" id="preamble_{{p.number}}" name="preamble_{{p.number}}">
+                <br />
+                {% endfor %}-->
+            </div>
+
+            <div id="clauses">
+                <!--<ol type="1">
+                    {% for c in resolution.resolution.clauses %}
+                    <li id="clause"><div contenteditable="true" class="clause" id="clause_{{c.number}}_div">{{c.clause|safe}}</div></li>
+                    <input type="hidden" id="clause_{{c.number}}" name="clause_{{c.number}}" />
+                    <ol type="a">
+                        {% for sub in c.subClauses %}
+                        <li><div contenteditable="true" class="subclause" id="subclause_{{sub.number}}">{{sub.subClause|safe}}</div></li>
+                        <input type="hidden" id="subclause_{{c.number}}_{{sub.number}}" name="subclause_{{c.number}}_{{sub.number}}" />
+                        <ol type="i">
+                            {% for subsub in sub.subSubClauses %}
+                            <li><div contenteditable="true" class="subsubclause" id="subsubclause_{{subsub.number}}">{{subsub.subSubClause|safe}}</div></li>
+                            <input type="hidden" id="subsubclause_{{c.number}}_{{sub.number}}_{{subsub.number}}" name="subsubclause_{{c.number}}_{{sub.number}}_{{subsub.number}}" />
+                            {% endfor %}
+                        </ol>
                         {% endfor %}
                     </ol>
                     {% endfor %}
-                </ol>
-                {% endfor %}
-            </ol>
+                </ol>-->
+            </div>
         </div>
         <div id="rightcolumn"></div>
         <div id="bottomrow"></div>
@@ -71,10 +74,106 @@
     {% else %}
     <input type="file" id="myFile" name="uploadedReso" />
     {% endif %}
-    <input class="button" type="submit" value="Save" />
+    <input type="button" onclick="submitForm()" value="Save" />
 </form>
 
 <script>
+    var resolution = {{ resolution.resolution | js}};
+
+    function generateForm() {
+        var preamDiv = document.querySelector('div#preambles');
+        preamDiv.innerHTML = ''; // clear all children
+        for (var i = 1; i <= resolution.preambles.length; i++) {
+            var div = document.createElement('div');
+            div.setAttribute('contenteditable', 'true');
+            div.setAttribute('id', 'preamble_' + i + "_div");
+            div.setAttribute('class', 'preamble');
+            div.innerHTML = resolution.preambles[i - 1].preamble;
+            preamDiv.appendChild(div);
+            var hiddenIn = document.createElement('input');
+            hiddenIn.setAttribute('type', 'hidden');
+            hiddenIn.setAttribute('id', 'preamble_' + i);
+            hiddenIn.setAttribute('name', 'preamble_' + i);
+            hiddenIn.setAttribute('value', div.innerHTML);
+            preamDiv.appendChild(hiddenIn);
+            preamDiv.appendChild(document.createElement('br'));
+        }
+
+        var clauseDiv = document.querySelector('div#clauses');
+        clauseDiv.innerHTML = ''; // clear all children
+
+        var clauseList = document.createElement('ol');
+        clauseList.setAttribute('type', '1');
+        for (var i = 1; i <= resolution.clauses.length; i++) {
+            var clauseItem = document.createElement('li')
+            var div = document.createElement('div');
+            div.setAttribute('contenteditable', 'true');
+            div.setAttribute('id', 'clause_' + i + "_div");
+            div.setAttribute('class', 'clause');
+            div.innerHTML = resolution.clauses[i - 1].clause;
+            clauseItem.appendChild(div);
+            clauseList.appendChild(clauseItem);
+            var hiddenIn = document.createElement('input');
+            hiddenIn.setAttribute('type', 'hidden');
+            hiddenIn.setAttribute('id', 'clause_' + i);
+            hiddenIn.setAttribute('name', 'clause_' + i);
+            hiddenIn.setAttribute('value', div.innerHTML);
+            clauseList.appendChild(hiddenIn);
+
+            // subclauses
+            var subClauseList = document.createElement('ol');
+            subClauseList.setAttribute('type', 'a');
+            for (var j = 1; j <= resolution.clauses[i-1].subClauses.length; j++) {
+                var subClauseItem = document.createElement('li')
+                var div = document.createElement('div');
+                div.setAttribute('contenteditable', 'true');
+                div.setAttribute('id', 'subClause_' + i + '_' + j + "_div");
+                div.setAttribute('class', 'subClause');
+                div.innerHTML = resolution.clauses[i-1].subClauses[j - 1].subClause;
+                subClauseItem.appendChild(div);
+                subClauseList.appendChild(subClauseItem);
+                var hiddenIn = document.createElement('input');
+                hiddenIn.setAttribute('type', 'hidden');
+                hiddenIn.setAttribute('id', 'subClause_' + i + '_' + j);
+                hiddenIn.setAttribute('name', 'subClause_' + i + '_' + j);
+                hiddenIn.setAttribute('value', div.innerHTML);
+                subClauseList.appendChild(hiddenIn);
+
+
+                // subsubclauses
+                var subSubClauseList = document.createElement('ol');
+                subSubClauseList.setAttribute('type', 'i');
+                for (var k = 1; k <= resolution.clauses[i-1].subClauses[j-1].subSubClauses.length; k++) {
+                    var subClauseItem = document.createElement('li')
+                    var div = document.createElement('div');
+                    div.setAttribute('contenteditable', 'true');
+                    div.setAttribute('id', 'subSubClause_' + i + '_' + j + '_' + k + "_div");
+                    div.setAttribute('class', 'subSubClause');
+                    div.innerHTML = resolution.clauses[i-1].subClauses[j-1].subSubClauses[k - 1].subSubClause;
+                    subClauseItem.appendChild(div);
+                    subSubClauseList.appendChild(subClauseItem);
+                    var hiddenIn = document.createElement('input');
+                    hiddenIn.setAttribute('type', 'hidden');
+                    hiddenIn.setAttribute('id', 'subSubClause_' + i + '_' + j + '_' + k);
+                    hiddenIn.setAttribute('name', 'subSubClause_' + i + '_' + j + '_' + k);
+                    hiddenIn.setAttribute('value', div.innerHTML);
+                    subSubClauseList.appendChild(hiddenIn);
+                }
+                subClauseList.appendChild(subSubClauseList);
+
+
+            }
+            clauseList.appendChild(subClauseList);
+
+
+        }
+        clauseDiv.appendChild(clauseList);
+    }
+
+    if (resolution) {
+        generateForm();
+    }
+
     window.onscroll = function () { scrollfunc() };
     var editbar = document.getElementById('editbar');
     var sticky = editbar.offsetTop;
@@ -85,6 +184,18 @@
         } else {
             editbar.classList.remove("sticky");
         }
+    }
+
+    function submitForm() {
+        if (resolution) {
+            for (var i = 1; i <= resolution.preambles.length; i++) {
+                var div = document.querySelector('div#preamble_' + i + '_div');
+                var hiddenIn = document.querySelector('input#preamble_' + i);
+                hiddenIn.setAttribute('value', div.innerHTML);
+            }
+        }
+
+        document.getElementById('myForm').submit()
     }
 
     /*

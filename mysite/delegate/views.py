@@ -34,11 +34,15 @@ def delegate(request, confID, page=''):
         context['committee'] = "Committee"
         context['country'] = 'Country'
     
-    if not page:
+    if not page: #main page
         return render(request, 'delegate/delegate.html', context)
 
     if page == 'upload':
-        if request.FILES:
+        if Reso.objects.filter(user=request.user).first(): # user already has resolution on file
+            if 'forum' in request.POST: #resolution is in POST
+                pass # -------------- ADD STUFF HERE TO PARSE RESO -------
+            context['resolution'] = Reso.objects.filter(user=request.user).first()
+        elif request.FILES:
             res = Reso(
                 #file_path = confID + '/' + context['committee'].abbr + '/resolutions' if not context['committee'] == 'Committee' else None,
                 user=context['user'],
@@ -51,6 +55,7 @@ def delegate(request, confID, page=''):
             #print(doc.text)
 
             res.resolution = Resolution(doc.text).resolution
+            res.save()
         
             context['resolution'] = res
 

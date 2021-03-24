@@ -3,15 +3,14 @@
     "",
     "\\mysite",
     "\\mysite\\delegate",
-    "\\mysite\\delegate\\templates",
-    "\\mysite\\delegate\\templates\\delegate",
-    "\\mysite\\homepage",
+    "\\mysite\\delegate\\static",
+    "\\mysite\\delegate\\static\\delegate",
     "\\mysite\\media",
     "\\mysite\\mysite",
     "\\mysite\\signin",
     "\\mysite\\signin\\templates",
     "\\mysite\\signin\\templates\\signin"
   ],
-  "SelectedNode": "\\mysite\\delegate\\views.py",
+  "SelectedNode": "\\mysite\\delegate\\Resolution.py",
   "PreviewInSolutionExplorer": false
 }
